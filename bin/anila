@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "anila/cli"
+Foundation::CLI::Generator.start(ARGV)

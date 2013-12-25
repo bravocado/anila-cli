@@ -82,7 +82,7 @@ module Anila
 
         unless File.exists?("bower.json")
           create_file "bower.json" do
-            {:name => "foundation_project"}.to_json
+            {:name => "anila_project"}.to_json
           end
         end
 

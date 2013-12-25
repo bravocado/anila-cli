@@ -1,6 +1,6 @@
 # Anila::Cli
 
-TODO: Write a gem description
+This is just a modification from [foundation-cli](https://github.com/mhayes/foundation-cli) because i can't write a ruby code but i just make my own workflow. Thanks to him.
 
 ## Installation
 

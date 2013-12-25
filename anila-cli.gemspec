@@ -5,7 +5,7 @@ require 'anila/cli/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "anila"
-  spec.version       = Anila::Cli::VERSION
+  spec.version       = Anila::CLI::VERSION
   spec.authors       = ["Bravocado"]
   spec.email         = ["bravocado.project@gmail.com"]
   spec.description   = %q{A CLI for working with Anila}

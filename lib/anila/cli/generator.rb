@@ -53,7 +53,7 @@ module Anila
 
       desc "version", "Display CLI version"
       def version
-        puts "v#{Foundation::CLI::VERSION}"
+        puts "v#{Anila::CLI::VERSION}"
       end
 
       desc "upgrade", "Upgrade your Anila compass project"

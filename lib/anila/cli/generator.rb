@@ -103,7 +103,7 @@ Anila has been setup in your project.
 
 Please update references to javascript files to look something like:
 
-<script src="#{bower_directory}/anila/js/anila.min.js"></script>
+<script src="#{bower_directory}/js/anila.min.js"></script>
 
 To update Anila in the future, just run: anila update
 
@@ -128,7 +128,8 @@ To update Anila in the future, just run: anila update
         inside(name) do
           say "Installing dependencies with bower..."
           run("bower install", capture: true, verbose: false)
-          File.open("scss/_settings.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_settings.scss") }
+          File.open("scss/style.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/style.scss") }
+          File.open("scss/noscript.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/noscript.scss") }
           run("git remote rm origin", capture: true, verbose: false)
           if options[:libsass]
             run "npm install"

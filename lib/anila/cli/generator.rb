@@ -130,6 +130,9 @@ To update Anila in the future, just run: anila update
           run("bower install", capture: true, verbose: false)
           File.open("scss/style.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/style.scss") }
           File.open("scss/noscript.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/noscript.scss") }
+          File.open("js/modernizr.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/modernizr.min.js") }
+          File.open("js/jquery.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/jquery.min.js") }
+          File.open("js/iconfont-fallback.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/iconfont-fallback.min.js") }
           run("git remote rm origin", capture: true, verbose: false)
           if options[:libsass]
             run "npm install"

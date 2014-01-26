@@ -130,6 +130,8 @@ To update Anila in the future, just run: anila update
           run("bower install", capture: true, verbose: false)
           File.open("scss/style.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/style.scss") }
           File.open("scss/noscript.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/noscript.scss") }
+          File.open("scss/values.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_values.scss") }
+          File.open("scss/conditional.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_conditional.scss") }
           File.open("js/modernizr.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/vendor/modernizr.js") }
           File.open("js/jquery.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/jquery/jquery.min.js") }
           File.open("js/legacy.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/legacy.min.js") }

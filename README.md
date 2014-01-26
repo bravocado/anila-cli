@@ -1,6 +1,6 @@
 # Anila::Cli
 
-This is just a modification from [foundation-cli](https://github.com/mhayes/foundation-cli) because i can't write a ruby code but i just make my own workflow. Thanks to him.
+This is just a modification from [foundation-cli](https://github.com/mhayes/foundation-cli) Thanks to him.
 
 ## Installation
 
@@ -34,11 +34,3 @@ anila update --version 1.0.1
 cd ~/Sites/my_awesome_app
 anila watch
 ```
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request

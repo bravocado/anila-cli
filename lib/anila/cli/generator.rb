@@ -103,7 +103,7 @@ Anila has been setup in your project.
 
 Please update references to javascript files to look something like:
 
-<script src="#{bower_directory}/js/anila.min.js"></script>
+<script src="#{bower_directory}/js/app.min.js"></script>
 
 To update Anila in the future, just run: anila update
 
@@ -111,12 +111,12 @@ To update Anila in the future, just run: anila update
       end
 
       desc "new", "create new project"
-      option :libsass, type: :boolean, default: false
+      option :grunt, type: :boolean, default: false
       option :version, type: :string
       def new(name)
-        if options[:libsass]
+        if options[:grunt]
           install_dependencies(%w{git node bower grunt})
-          repo = "https://github.com/bravocado/anila-libsass-template.git"
+          repo = "https://github.com/bravocado/anila-grunt-template.git"
         else
           install_dependencies(%w{git node bower compass})
           repo = "https://github.com/bravocado/anila-compass-template.git"
@@ -132,14 +132,9 @@ To update Anila in the future, just run: anila update
           File.open("src/scss/noscript.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/noscript.scss") }
           File.open("src/scss/_values.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_values.scss") }
           File.open("src/scss/_conditional.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_conditional.scss") }
-          File.open("dist/js/modernizr.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/vendor/modernizr.min.js") }
-          File.open("dist/js/jquery.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/jquery/dist/jquery.min.js") }
-          File.open("dist/js/legacy.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/legacy.min.js") }
-          File.open("dist/js/iconfont-fallback.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/iconfont-fallback.min.js") }
-          run("git remote rm origin", capture: true, verbose: false)
-          if options[:libsass]
+          if options[:grunt]
             run "npm install"
-            run "grunt build"
+            run "grunt build:dev"
           else
             if defined?(Bundler)
               Bundler.with_clean_env do
@@ -147,6 +142,11 @@ To update Anila in the future, just run: anila update
               end
             end
           end
+          File.open("dist/js/modernizr.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/modernizr.min.js") }
+          File.open("dist/js/jquery.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/jquery/dist/jquery.min.js") }
+          File.open("dist/js/legacy.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/legacy.min.js") }
+          File.open("dist/js/iconfont-fallback.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/iconfont-fallback.min.js") }
+          run("git remote rm origin", capture: true, verbose: false)
         end
 
         say "./#{name} was created"

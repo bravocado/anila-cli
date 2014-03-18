@@ -1,7 +1,5 @@
 # Anila::Cli
 
-This is just a modification from [foundation-cli](https://github.com/mhayes/foundation-cli) Thanks to him.
-
 ## Installation
 
 Add this line to your application's Gemfile:

@@ -30,12 +30,17 @@ module Anila
           end
 
           if deps.include?("bower") && !which("bower")
-            say "Can't find bower. You can install it by running: sudo npm install -g bower"
+            say "Can't find Bower. You can install it by running: [sudo] npm install -g bower"
             exit 1
           end
 
           if deps.include?("grunt") && !which("grunt")
-            say "Can't find grunt. You can install it by running: sudo npm install -g grunt-cli"
+            say "Can't find Grunt. You can install it by running: [sudo] npm install -g grunt-cli"
+            exit 1
+          end
+
+          if deps.include?("gulp") && !which("gulp")
+            say "Can't find Gulp. You can install it by running: [sudo] npm install -g gulp"
             exit 1
           end
 
@@ -77,7 +82,7 @@ module Anila
         bower_directory = JSON.parse(File.read(".bowerrc"))["directory"]
 
         gsub_file "config.rb", /require [\"\']anila[\"\']/ do |match|
-          match = "add_import_path \"#{bower_directory}/anila/scss\""
+          match = "add_import_path \"#{bower_directory}/anila/sass\""
         end
 
         unless File.exists?("bower.json")
@@ -101,10 +106,6 @@ module Anila
 
 Anila has been setup in your project.
 
-Please update references to javascript files to look something like:
-
-<script src="#{bower_directory}/js/app.min.js"></script>
-
 To update Anila in the future, just run: anila update
 
         EOS
@@ -112,11 +113,15 @@ To update Anila in the future, just run: anila update
 
       desc "new", "create new project"
       option :grunt, type: :boolean, default: false
+      option :gulp, type: :boolean, default: false
       option :version, type: :string
       def new(name)
         if options[:grunt]
           install_dependencies(%w{git node bower grunt})
           repo = "https://github.com/bravocado/anila-grunt-template.git"
+        elsif options[:gulp]
+          install_dependencies(%w{git node gulp})
+          repo = "https://github.com/bravocado/anila-gulp-template.git"
         else
           install_dependencies(%w{git node bower compass})
           repo = "https://github.com/bravocado/anila-compass-template.git"
@@ -126,26 +131,28 @@ To update Anila in the future, just run: anila update
         empty_directory(name)
         run("git clone #{repo} #{name}", capture: true, verbose: false)
         inside(name) do
-          say "Installing dependencies with bower..."
-          run("bower install", capture: true, verbose: false)
-          File.open("src/scss/style.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/style.scss") }
-          File.open("src/scss/noscript.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/noscript.scss") }
-          File.open("src/scss/_values.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_values.scss") }
-          File.open("src/scss/_conditional.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/scss/anila/_conditional.scss") }
           if options[:grunt]
+            say "Installing dependencies..."
+            run("bower install", capture: true, verbose: false)
+            File.open("build/sass/_values.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/build/sass/anila/_values.scss") }
+            File.open("build/sass/_conditional.scss", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/build/sass/anila/_conditional.scss") }
             run "npm install"
-            run "grunt build:dev"
+            run "grunt build"
+          elsif options[:gulp]
+            say "Installing dependencies..."
+            run "npm install"
+            File.open("build/sass/_values.scss", "w") {|f| f.puts File.read("#{destination_root}/node_modules/anila/sass/anila/_values.scss") }
+            File.open("build/sass/_conditional.scss", "w") {|f| f.puts File.read("#{destination_root}/node_modules/anila/sass/anila/_conditional.scss") }
+            run "gulp clean && gulp build"
           else
+            say "Installing dependencies..."
+            run("bower install", capture: true, verbose: false)
             if defined?(Bundler)
               Bundler.with_clean_env do
                 run "compass compile"
               end
             end
           end
-          File.open("dist/js/modernizr.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/modernizr.min.js") }
-          File.open("dist/js/jquery.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/jquery/dist/jquery.min.js") }
-          File.open("dist/js/legacy.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/legacy.min.js") }
-          File.open("dist/js/iconfont-fallback.min.js", "w") {|f| f.puts File.read("#{destination_root}/bower_components/anila/js/iconfont-fallback.min.js") }
           run("git remote rm origin", capture: true, verbose: false)
         end
 

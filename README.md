@@ -4,7 +4,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'anila-cli'
+    gem 'anila'
 
 And then execute:
 
@@ -12,23 +12,31 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install anila-cli
+    $ [sudo] gem install anila
 
 ## Usage
 
-```bash
-anila new my_awesome_project --version 1.0.0
-```
-
-### Update a project
-```
-cd ~/Sites/my_awesome_app
-anila update --version 1.0.1
-```
-
-### Compile assets
+### Compass Project
 
 ```bash
-cd ~/Sites/my_awesome_app
-anila watch
+anila new my_awesome_project
+```
+
+### Grunt Project
+
+```bash
+anila new my_awesome_project --grunt
+```
+
+### Gulp Project
+
+```bash
+anila new my_awesome_project --gulp
+```
+
+
+## Update a project
+```
+cd ~/your_directory/to/your_awesome_app
+anila update
 ```
